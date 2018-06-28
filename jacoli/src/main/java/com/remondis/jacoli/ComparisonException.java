@@ -4,6 +4,7 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Thrown if the mapping configuration has errors or if an actual mapping fails.
@@ -37,11 +38,14 @@ public class ComparisonException extends RuntimeException {
         .format("The field selector for method '%s' tracked zero interactions with properties.", configurationMethod));
   }
 
-  static ComparisonException multipleInteractions(String configurationMethod, List<String> trackedPropertyNames) {
+  static ComparisonException multipleInteractions(String configurationMethod, List<Method> trackenMethods) {
+    List<String> stringMethods = trackenMethods.stream()
+        .map(Method::getName)
+        .collect(Collectors.toList());
     return new ComparisonException(String.format(
-        "The field selector for method '%s' tracked multiple interactions with the following properties: %s."
-            + " Only one interaction perfield selector is allowed!",
-        configurationMethod, String.join(",", trackedPropertyNames)));
+        "The field selector for %s tracked multiple interactions with the following properties (getter): %s."
+            + " Only one interaction per field selector is allowed!",
+        configurationMethod, String.join(",", stringMethods)));
   }
 
   static ComparisonException notAGetter(Method method) {

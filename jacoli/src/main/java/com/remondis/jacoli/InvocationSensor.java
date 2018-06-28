@@ -4,7 +4,6 @@ import static com.remondis.jacoli.ReflectionUtil.defaultValue;
 import static com.remondis.jacoli.ReflectionUtil.hasReturnType;
 import static com.remondis.jacoli.ReflectionUtil.invokeMethodProxySafe;
 import static com.remondis.jacoli.ReflectionUtil.isGetter;
-import static com.remondis.jacoli.ReflectionUtil.toPropertyName;
 
 import java.lang.reflect.Method;
 import java.util.Collections;
@@ -26,7 +25,7 @@ class InvocationSensor<T> {
 
   private T proxyObject;
 
-  private List<String> propertyNames = new LinkedList<>();
+  private List<Method> methods = new LinkedList<>();
 
   InvocationSensor(Class<T> superType) {
     Enhancer enhancer = new Enhancer();
@@ -36,10 +35,7 @@ class InvocationSensor<T> {
       public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         if (isGetter(method)) {
           denyNoReturnType(method);
-          // schuettec - Get property name from method and mark this property as called.
-          String propertyName = toPropertyName(method);
-          propertyNames.add(propertyName);
-          // schuettec - Then return an appropriate default value.
+          methods.add(method);
           return nullOrDefaultValue(method.getReturnType());
         } else if (isObjectMethod(method)) {
           // schuettec - 08.02.2017 : Methods like toString, equals or hashcode are redirected to this invocation
@@ -68,8 +64,8 @@ class InvocationSensor<T> {
    *
    * @return Returns the tracked property names.
    */
-  List<String> getTrackedPropertyNames() {
-    return Collections.unmodifiableList(propertyNames);
+  List<Method> getTrackedMethods() {
+    return Collections.unmodifiableList(methods);
   }
 
   /**
@@ -78,15 +74,15 @@ class InvocationSensor<T> {
    * @return Returns <code>true</code> if there were at least one interaction with a property. Otherwise
    *         <code>false</code> is returned.
    */
-  boolean hasTrackedProperties() {
-    return !propertyNames.isEmpty();
+  boolean hasTrackedMethods() {
+    return !methods.isEmpty();
   }
 
   /**
    * Resets all tracked information.
    */
   void reset() {
-    propertyNames.clear();
+    methods.clear();
   }
 
   private void denyNoReturnType(Method method) {
