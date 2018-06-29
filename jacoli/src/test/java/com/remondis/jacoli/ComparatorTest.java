@@ -1,8 +1,10 @@
-package com.remondis.jacoli.api;
+package com.remondis.jacoli;
 
 import java.util.Arrays;
 
 import org.junit.Test;
+
+import com.remondis.jacoli.Compare;
 
 public class ComparatorTest {
 

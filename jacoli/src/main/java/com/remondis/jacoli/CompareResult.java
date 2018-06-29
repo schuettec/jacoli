@@ -1,4 +1,4 @@
-package com.remondis.jacoli.api;
+package com.remondis.jacoli;
 
 public class CompareResult {
 
