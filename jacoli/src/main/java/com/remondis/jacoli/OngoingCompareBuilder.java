@@ -1,13 +1,14 @@
 package com.remondis.jacoli;
 
-import java.util.Comparator;
 import java.util.function.Function;
 
-public interface OngoingCompareBuilder<T> {
+public interface OngoingCompareBuilder<T, V> {
 
-  public <V> RightCompareBuilder<T, V> andComparing(Function<T, V> leftHandSideValueExtractor);
+  public <V1> RightCompareBuilder<T, V1> andComparing(Function<T, V1> leftHandSideValueExtractor);
 
-  public Comparator<T> toComparator();
+  // public <V1, C extends Collection<V1>> RightCompareCollectionBuilder<T, V1> andComparingCollection(
+  // Function<T, C> leftHandSideValueExtractor);
 
-  public CompareResult compareResult(T leftHandSideInstance, T rightHandSideInstance);
+  public Comparison<T> build();
+
 }

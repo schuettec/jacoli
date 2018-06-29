@@ -41,4 +41,9 @@ public class A {
     this.strings = strings;
   }
 
+  @Override
+  public String toString() {
+    return "A [a=" + a + ", integer=" + integer + ", strings=" + strings + "]";
+  }
+
 }

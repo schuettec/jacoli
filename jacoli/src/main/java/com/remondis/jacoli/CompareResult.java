@@ -4,7 +4,7 @@ public class CompareResult {
 
   private int result;
 
-  CompareResult(int result) {
+  public CompareResult(int result) {
     super();
     this.result = result;
   }
@@ -17,12 +17,8 @@ public class CompareResult {
     return result == 0;
   }
 
-  public boolean isLower() {
-    return result < 0;
-  }
-
-  public boolean isGreater() {
-    return result > 0;
+  public boolean isNotEqual() {
+    return result == 0;
   }
 
 }
