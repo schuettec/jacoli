@@ -3,7 +3,7 @@ package com.remondis.jacoli;
 import java.util.Collection;
 import java.util.function.Function;
 
-public interface OngoingCompareBuilder<T, V> {
+public interface OngoingCompareCollectionBuilder<T, V> {
 
   public <V1> RightCompareBuilder<T, V1> andComparing(Function<T, V1> leftHandSideValueExtractor);
 
@@ -11,5 +11,4 @@ public interface OngoingCompareBuilder<T, V> {
       Function<T, C> leftHandSideValueExtractor);
 
   public Comparison<T> build();
-
 }

@@ -24,10 +24,18 @@ public class ComparisonImpl<T> implements Comparison<T>, Comparator<T> {
 
   @Override
   public int compare(T o1, T o2) {
-    Optional<Integer> result = fieldComparisons.parallelStream()
+    Optional<Integer> result = fieldComparisons.stream()
         .map(fc -> {
-          int compare = fc.compare(o1, o2);
-          return compare;
+          try {
+            int compare = fc.compare(o1, o2);
+            return compare;
+          } catch (Exception e) {
+            System.out.println("fc: " + fc);
+            System.out.println("o1: " + o1);
+            System.out.println("o2: " + o2);
+            e.printStackTrace();
+            return -1;
+          }
         })
         .reduce((acc, now) -> {
           if (now != 0) {
