@@ -27,7 +27,22 @@ public class ComparatorTest {
   }
 
   @Test
-  public void shouldNotBeEqual() {
+  public void shouldNotBeEqual_Different_List_Items() {
+    A a1 = new A("a", 1, Arrays.asList(new A("b", 2, null)));
+    A a2 = new A("b", 1, Arrays.asList(new A("c", 2, null)));
+    assertFalse(compare(A.class).comparing(A::getA)
+        .to(A::getA)
+        .using(String::compareTo)
+        .andComparing(A::getInteger)
+        .to(A::getInteger)
+        .using(Integer::compareTo)
+        .build()
+        .compareResult(a1, a2)
+        .isEqual());
+  }
+
+  @Test
+  public void shouldNotBeEqual_Null_And_Empty_Collection() {
     A a1 = new A("a", 1, null);
     A a2 = new A("b", 1, emptyList());
     assertFalse(compare(A.class).comparing(A::getA)
