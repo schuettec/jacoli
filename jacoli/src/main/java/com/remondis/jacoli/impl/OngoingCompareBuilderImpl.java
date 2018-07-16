@@ -1,5 +1,7 @@
 package com.remondis.jacoli.impl;
 
+import static java.util.Objects.nonNull;
+
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.function.Function;
@@ -36,6 +38,8 @@ public class OngoingCompareBuilderImpl<T, V> implements OngoingCompareBuilder<T,
   @Override
   public <V1, C extends Collection<V1>> RightCompareCollectionBuilder<T, V1> andComparingCollection(
       Function<T, C> leftHandSideValueExtractor) {
+    this.toAdd = new FieldComparison<>(this.leftHandSideValueExtractor, rightHandSideValueExtractor, comparator);
+    addComparison();
     return new RightCompareCollectionBuilderImpl<T, V1>(comparison, leftHandSideValueExtractor);
   }
 
@@ -45,7 +49,9 @@ public class OngoingCompareBuilderImpl<T, V> implements OngoingCompareBuilder<T,
 
   @Override
   public Comparison<T> build() {
-    addComparison();
+    if (nonNull(toAdd)) {
+      addComparison();
+    }
     return comparison;
   }
 

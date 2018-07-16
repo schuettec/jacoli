@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.function.Function;
 
 import com.remondis.jacoli.ComparatorBuilder;
+import com.remondis.jacoli.FieldComparison;
 import com.remondis.jacoli.OngoingCompareBuilder;
 
 public class ComparatorBuilderImpl<T, V> implements ComparatorBuilder<T, V> {
@@ -21,6 +22,8 @@ public class ComparatorBuilderImpl<T, V> implements ComparatorBuilder<T, V> {
 
   @Override
   public OngoingCompareBuilder<T, V> using(Comparator<V> comparator) {
+    comparison
+        .addComparison(new FieldComparison<>(this.leftHandSideValueExtractor, rightHandSideValueExtractor, comparator));
     return new OngoingCompareBuilderImpl<T, V>(comparison, leftHandSideValueExtractor, rightHandSideValueExtractor,
         comparator);
   }
