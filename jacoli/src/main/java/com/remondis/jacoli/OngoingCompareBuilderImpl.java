@@ -1,4 +1,4 @@
-package com.remondis.jacoli.impl;
+package com.remondis.jacoli;
 
 import static java.util.Objects.nonNull;
 
@@ -6,23 +6,16 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.function.Function;
 
-import com.remondis.jacoli.CollectionComparison;
-import com.remondis.jacoli.Comparison;
-import com.remondis.jacoli.OngoingCompareCollectionBuilder;
-import com.remondis.jacoli.RightCompareBuilder;
-import com.remondis.jacoli.RightCompareCollectionBuilder;
-
-public class OngoingCompareCollectionBuilderImpl<T, V> implements OngoingCompareCollectionBuilder<T, V> {
+public class OngoingCompareBuilderImpl<T, V> implements OngoingCompareBuilder<T, V> {
 
   private ComparisonImpl<T> comparison;
-  private Function<T, ? extends Collection<V>> leftHandSideValueExtractor;
-  private Function<T, ? extends Collection<V>> rightHandSideValueExtractor;
+  private Function<T, V> leftHandSideValueExtractor;
+  private Function<T, V> rightHandSideValueExtractor;
   private Comparator<V> comparator;
   private Comparator<T> toAdd;
 
-  OngoingCompareCollectionBuilderImpl(ComparisonImpl<T> comparison,
-      Function<T, ? extends Collection<V>> leftHandSideValueExtractor,
-      Function<T, ? extends Collection<V>> rightHandSideValueExtractor, Comparator<V> comparator) {
+  OngoingCompareBuilderImpl(ComparisonImpl<T> comparison, Function<T, V> leftHandSideValueExtractor,
+      Function<T, V> rightHandSideValueExtractor, Comparator<V> comparator) {
     this.comparison = comparison;
     this.leftHandSideValueExtractor = leftHandSideValueExtractor;
     this.rightHandSideValueExtractor = rightHandSideValueExtractor;
@@ -31,8 +24,7 @@ public class OngoingCompareCollectionBuilderImpl<T, V> implements OngoingCompare
 
   @Override
   public <V1> RightCompareBuilder<T, V1> andComparing(Function<T, V1> leftHandSideValueExtractor) {
-    this.toAdd = new CollectionComparison<T, V>(this.leftHandSideValueExtractor, rightHandSideValueExtractor,
-        comparator);
+    this.toAdd = new FieldComparison<>(this.leftHandSideValueExtractor, rightHandSideValueExtractor, comparator);
     addComparison();
     return new RightCompareBuilderImpl<>(comparison, leftHandSideValueExtractor);
   }
@@ -40,8 +32,7 @@ public class OngoingCompareCollectionBuilderImpl<T, V> implements OngoingCompare
   @Override
   public <V1, C extends Collection<V1>> RightCompareCollectionBuilder<T, V1> andComparingCollection(
       Function<T, C> leftHandSideValueExtractor) {
-    this.toAdd = new CollectionComparison<T, V>(this.leftHandSideValueExtractor, rightHandSideValueExtractor,
-        comparator);
+    this.toAdd = new FieldComparison<>(this.leftHandSideValueExtractor, rightHandSideValueExtractor, comparator);
     addComparison();
     return new RightCompareCollectionBuilderImpl<T, V1>(comparison, leftHandSideValueExtractor);
   }

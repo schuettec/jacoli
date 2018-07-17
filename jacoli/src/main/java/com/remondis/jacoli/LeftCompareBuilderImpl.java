@@ -1,11 +1,7 @@
-package com.remondis.jacoli.impl;
+package com.remondis.jacoli;
 
 import java.util.Collection;
 import java.util.function.Function;
-
-import com.remondis.jacoli.LeftCompareBuilder;
-import com.remondis.jacoli.RightCompareBuilder;
-import com.remondis.jacoli.RightCompareCollectionBuilder;
 
 public class LeftCompareBuilderImpl<T> implements LeftCompareBuilder<T> {
 

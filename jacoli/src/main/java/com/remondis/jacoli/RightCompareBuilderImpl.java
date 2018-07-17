@@ -1,9 +1,6 @@
-package com.remondis.jacoli.impl;
+package com.remondis.jacoli;
 
 import java.util.function.Function;
-
-import com.remondis.jacoli.ComparatorBuilder;
-import com.remondis.jacoli.RightCompareBuilder;
 
 public class RightCompareBuilderImpl<T, V> implements RightCompareBuilder<T, V> {
 

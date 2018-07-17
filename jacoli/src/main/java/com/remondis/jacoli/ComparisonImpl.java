@@ -1,12 +1,12 @@
-package com.remondis.jacoli.impl;
+package com.remondis.jacoli;
+
+import static com.remondis.jacoli.ComparisonException.compareThrewException;
+import static com.remondis.jacoli.ComparisonException.noComparisons;
 
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-
-import com.remondis.jacoli.CompareResult;
-import com.remondis.jacoli.Comparison;
 
 public class ComparisonImpl<T> implements Comparison<T>, Comparator<T> {
 
@@ -30,11 +30,7 @@ public class ComparisonImpl<T> implements Comparison<T>, Comparator<T> {
             int compare = fc.compare(o1, o2);
             return compare;
           } catch (Exception e) {
-            System.out.println("fc: " + fc);
-            System.out.println("o1: " + o1);
-            System.out.println("o2: " + o2);
-            e.printStackTrace();
-            return -1;
+            throw compareThrewException(o1, o2, e);
           }
         })
         .reduce((acc, now) -> {
@@ -47,7 +43,7 @@ public class ComparisonImpl<T> implements Comparison<T>, Comparator<T> {
     if (result.isPresent()) {
       return result.get();
     } else {
-      throw ComparisonException.noComparisons();
+      throw noComparisons();
     }
   }
 

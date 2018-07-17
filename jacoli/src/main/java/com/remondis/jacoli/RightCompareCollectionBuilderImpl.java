@@ -1,10 +1,7 @@
-package com.remondis.jacoli.impl;
+package com.remondis.jacoli;
 
 import java.util.Collection;
 import java.util.function.Function;
-
-import com.remondis.jacoli.ComparatorCollectionBuilder;
-import com.remondis.jacoli.RightCompareCollectionBuilder;
 
 public class RightCompareCollectionBuilderImpl<T, V> implements RightCompareCollectionBuilder<T, V> {
 

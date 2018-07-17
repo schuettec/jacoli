@@ -1,11 +1,7 @@
-package com.remondis.jacoli.impl;
+package com.remondis.jacoli;
 
 import java.util.Comparator;
 import java.util.function.Function;
-
-import com.remondis.jacoli.ComparatorBuilder;
-import com.remondis.jacoli.FieldComparison;
-import com.remondis.jacoli.OngoingCompareBuilder;
 
 public class ComparatorBuilderImpl<T, V> implements ComparatorBuilder<T, V> {
 

@@ -1,11 +1,8 @@
-package com.remondis.jacoli.impl;
+package com.remondis.jacoli;
 
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.function.Function;
-
-import com.remondis.jacoli.ComparatorCollectionBuilder;
-import com.remondis.jacoli.OngoingCompareCollectionBuilder;
 
 public class ComparatorCollectionBuilderImpl<T, V> implements ComparatorCollectionBuilder<T, V> {
 
@@ -23,8 +20,18 @@ public class ComparatorCollectionBuilderImpl<T, V> implements ComparatorCollecti
 
   @Override
   public OngoingCompareCollectionBuilder<T, V> using(Comparator<V> comparator) {
-    return new OngoingCompareCollectionBuilderImpl<T, V>(comparison, leftHandSideValueExtractor,
-        rightHandSideValueExtractor, comparator);
+    comparison.addComparison(
+        new CollectionComparison<T, V>(this.leftHandSideValueExtractor, rightHandSideValueExtractor, comparator));
+    return new OngoingCompareCollectionBuilderImpl<T, V>(comparison);
+  }
+
+  @SuppressWarnings("unchecked")
+  @Override
+  public OngoingCompareCollectionBuilder<T, V> using(ThisComparator<T> thisComparator) {
+    comparison.addComparison(new CollectionComparison<T, T>(
+        (Function<T, ? extends Collection<T>>) this.leftHandSideValueExtractor,
+        (Function<T, ? extends Collection<T>>) rightHandSideValueExtractor, thisComparator.thisComparator(comparison)));
+    return new OngoingCompareCollectionBuilderImpl<T, V>(comparison);
   }
 
 }

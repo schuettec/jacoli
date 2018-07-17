@@ -1,4 +1,4 @@
-package com.remondis.jacoli.impl;
+package com.remondis.jacoli;
 
 public class ComparisonException extends RuntimeException {
 
@@ -24,6 +24,12 @@ public class ComparisonException extends RuntimeException {
 
   public static ComparisonException noComparisons() {
     return new ComparisonException("No comparisons where specified.");
+  }
+
+  public static <T> ComparisonException compareThrewException(T o1, T o2, Exception e) {
+    return new ComparisonException(String.format(
+        "Comparison threw an exception for the following object:\n\t- %s\n\t- %s", o1.toString(), o2.toString()), e);
+
   }
 
 }
