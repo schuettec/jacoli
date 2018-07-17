@@ -1,4 +1,4 @@
-package com.remondis.jacoli;
+package com.github.schuettec.compare;
 
 import java.util.Comparator;
 import java.util.function.Function;

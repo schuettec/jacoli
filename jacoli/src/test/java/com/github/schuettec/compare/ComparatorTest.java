@@ -1,7 +1,7 @@
-package com.remondis.jacoli;
+package com.github.schuettec.compare;
 
-import static com.remondis.jacoli.Compare.compare;
-import static com.remondis.jacoli.ThisComparator.thisComparator;
+import static com.github.schuettec.compare.Compare.compare;
+import static com.github.schuettec.compare.ThisComparator.thisComparator;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static org.junit.Assert.assertFalse;

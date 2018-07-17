@@ -1,4 +1,4 @@
-package com.remondis.jacoli;
+package com.github.schuettec.compare;
 
 public class ComparisonException extends RuntimeException {
 

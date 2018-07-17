@@ -2,8 +2,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.remondis</groupId>
-	<artifactId>jacoli</artifactId>
+	<groupId>com.github.schuettec</groupId>
+	<artifactId>java-compare-library</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Jacoli - A declarative object comparsion library</name>
 	<prerequisites>
@@ -36,7 +36,7 @@
 		<repository>
 			<id>bintray-schuettec-maven</id>
 			<name>schuettec-maven</name>
-			<url>https://api.bintray.com/maven/schuettec/maven/com.remondis.example/;publish=1</url>
+			<url>https://api.bintray.com/maven/schuettec/maven/com.schuettec.github.jacoli/;publish=1</url>
 		</repository>
 	</distributionManagement>
 	<build>
@@ -276,4 +276,9 @@
 			<version>3.2.6</version>
 		</dependency>
 	</dependencies>
+	<description>Jacoli is a java library that supports building comparator instances using lambda expressions. This way Jacoli is able to provide a type safe API.
+
+Jacoli does not use reflections - lamda expressions are used instead. Therefore reflection overhead is avoided and does not influence the runtime behaviour.
+
+</description>
 </project>

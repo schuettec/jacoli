@@ -1,7 +1,7 @@
-package com.remondis.jacoli;
+package com.github.schuettec.compare;
 
-import static com.remondis.jacoli.ComparisonException.compareThrewException;
-import static com.remondis.jacoli.ComparisonException.noComparisons;
+import static com.github.schuettec.compare.ComparisonException.compareThrewException;
+import static com.github.schuettec.compare.ComparisonException.noComparisons;
 
 import java.util.Comparator;
 import java.util.LinkedList;
